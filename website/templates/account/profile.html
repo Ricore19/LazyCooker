@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container" style="margin-top : 100px; background : white; border-radius : 10px;">
+        <div class="row">
+            <div class="col-md-4" style="background : #EEEEEE; border-radius : 10px; height : 100%;">
+                <h3>{{ viewuser.username }}</h3>
+                <p>First name : {{ viewuser.first_name }}</p>
+                <p>Last name : {{ viewuser.last_name }}</p>
+                <p>Email : {{ viewuser.email }}</p>
+                {% if viewuser.is_staff %}<p>Admin</p>{% endif %}
+                {% if user.username == viewuser.username %}
+
+                    <a href="/changeprofile"><h3>modifier mes informations</h3></a>
+                    <a href="/changepassword"><h3>modifier mon mot de passe</h3></a>
+
+                {% else %}
+
+                    <a href="/message/{{ name }}"><h3>envoyer un message privet</h3></a>
+
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                {% if user.username == viewuser.username %}
+
+                    <h1>Message privet ({{ messages.count }}) :</h1>
+                    {% for message in messages %}
+
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2" style="background : #EEEEEE; margin-top : 1em; border-radius : 10px; padding : 1em;">
+                                <h2>{{ message.titre }}</h2>
+                                <p>from <a>{{ message.auteur }}</a> at {{ message.date }}</p>
+                                <p>{{ message.contenu }}</p>
+                                <a href="{{ message.id }}"><button type="button" class="btn btn-primary">Delete</button></a>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+                <div class="row">
+                <h1>Message posté sur le forum ({{posts.count}}) :</h1>
+                {% for post in posts %}
+                    <div class="col-md-4" style="background : #EEEEEE; margin-top : 1em; border-radius : 10px; padding : 1em;">
+                        <h2>{{ post.titre }}</h2>
+                        <p>At {{ post.date }}</p>
+                        <p>
+                            <a href="/forum/post/{{ post.id }}"><button type="button" class="btn btn-primary">Show</button></a>
+                            {% if user.username == viewuser.username %}<a href="/forum/postdel/{{ post.id }}"><button type="button" class="btn btn-danger">Delete</button></a>{% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+                </div>
+                <h1>Recettes proposé (0) :</h1>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

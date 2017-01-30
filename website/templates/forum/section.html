@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container" style="margin-top : 100px; background : white; border-radius : 1em; padding : 1em;">
+        <div class="raw">
+            <h1 style="margin-top : 1em; padding : 1em; text-align : center;">Lazy Cooker's Forum</h1>
+            {% for section in sections %}
+                <div class="raw">
+                    <div class="col-md-8 col-md-offset-2" style="background : #EEEEEE; margin-top : 1em; border-radius : 10px; padding : 1em;">
+                        <h1>{{ section.titre }}</h1>
+                        <p>{{ section.contenu }}</p>
+                        <a href="/forum/section/{{ section.id }}/1"><button type="button" class="btn btn-primary">Show</button></a>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="raw">
+                <div class="col-md-8 col-md-offset-2" style="background : #EEEEEE; margin-top : 1em; border-radius : 10px; padding : 1em;">
+                    <h1>Latest posts</h1>
+                    <p>Look up the latest post sent on this forum</p>
+                    <button type="button" class="btn btn-primary">Show</button>
+                </div>
+            </div>
+            <div class="raw">
+                <div class="col-md-8 col-md-offset-2" style="background : #EEEEEE; margin-top : 1em; border-radius : 10px; padding : 1em;">
+                    <h1>Greatest posts</h1>
+                    <p>Look up the greatest post sent on this forum</p>
+                    <button type="button" class="btn btn-primary">Show</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
